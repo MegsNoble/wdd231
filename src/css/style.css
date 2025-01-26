@@ -1,3 +1,10 @@
+@import "partials/variables.css";
+@import "partials/global.css";
+@import "partials/header.css";
+@import "partials/footer.css";
+@import "partials/blocks.css";
+@import "partials/utilities.css";
+@import "home.css";
 :root {
   --bs-black: #000;
   --bs-brown: #393423;
@@ -85,8 +92,6 @@
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
-
-/* Global styles */
 * {
   box-sizing: border-box;
 }
@@ -105,7 +110,6 @@ a:visited {
 a:hover {
   color: var(--bs-link-hover-color);
 }
-/* Skip links styling */
 .skip-links ul {
   list-style-type: none;
   margin: 0;
@@ -123,7 +127,6 @@ a:hover {
   top: 2px;
   z-index: 9999;
 }
-/* Title and logo styling */
 .site-title {
   display: flex;
   align-items: center;
@@ -141,7 +144,6 @@ a:hover {
   border-left: 13px solid transparent;
   border-right: 13px solid transparent;
 }
-/* Utility styles */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -195,7 +197,6 @@ svg {
   text-transform: uppercase;
   border-left: 1px solid var(--bs-grey-5);
 }
-/* Hero banner */
 .hero-banner {
   display: grid;
   grid-template-columns: 1fr;
@@ -225,7 +226,6 @@ svg {
   flex-direction: column;
   font-size: 0.8rem;
 }
-/* Park nav styling */
 .park-nav > ul {
   list-style: none;
   padding-left: 0;

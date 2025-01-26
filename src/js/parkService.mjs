@@ -38,6 +38,30 @@ const park = {
       }
     ]
   },
+  addresses: [
+    {
+      postalCode: "82190",
+      city: "Yellowstone National Park",
+      stateCode: "WY",
+      countryCode: "US",
+      provinceTerritoryCode: "",
+      line1: "2 Officers Row",
+      type: "Physical",
+      line3: "",
+      line2: "Yellowstone National Park Headquarters"
+    },
+    {
+      postalCode: "82190-0168",
+      city: "Yellowstone National Park",
+      stateCode: "WY",
+      countryCode: "US",
+      provinceTerritoryCode: "",
+      line1: "PO Box 168",
+      type: "Mailing",
+      line3: "",
+      line2: ""
+    }
+  ],
   directionsInfo:
     "Yellowstone National Park covers nearly 3,500 square miles in the northwest corner of Wyoming (3% of the park is in Montana and 1% is in Idaho). Yellowstone has five entrance stations, and several are closed to regular vehicles during winter. It takes many hours to drive between these entrances, so be sure to check the status of roads at the entrance you intend to use while planning your trip and before you arrive.",
   directionsUrl: "http://www.nps.gov/yell/planyourvisit/directions.htm",
@@ -154,6 +178,51 @@ const park = {
   name: "Yellowstone",
   designation: "National Park"
 };
-export function getParkData() {
-  return park;
+const parkInfoLinks = [
+  {
+    name: "Current Conditions &#x203A;",
+    link: "conditions.html",
+    image: park.images[2].url,
+    description:
+      "See what conditions to expect in the park before leaving on your trip!"
+  },
+  {
+    name: "Fees and Passes &#x203A;",
+    link: "fees.html",
+    image: park.images[3].url,
+    description: "Learn about the fees and passes that are available."
+  },
+  {
+    name: "Visitor Centers &#x203A;",
+    link: "visitor_centers.html",
+    image: park.images[9].url,
+    description: "Learn about the visitor centers in the park."
+  }
+];
+const baseUrl = "https://developer.nps.gov/api/v1/";
+const apiKey = import.meta.env.VITE_NPS_API_KEY;
+async function getJson(url) {
+  const options = {
+    method: "GET",
+    headers: {
+      "X-Api-Key": apiKey
+    }
+  };
+  let data = {};
+  const response = await fetch(baseUrl + url, options);
+  if (response.ok) {
+    data = await response.json();
+  } else throw new Error("response not ok");
+  return data;
+}
+export function getInfoLinks(data) {
+  const withUpdatedImages = parkInfoLinks.map((item, index) => {
+    item.image = data[index + 2].url;
+    return item;
+  });
+  return withUpdatedImages;
+}
+export async function getParkData() {
+  const parkData = await getJson("parks?parkCode=yell");
+  return parkData.data[0];
 }
